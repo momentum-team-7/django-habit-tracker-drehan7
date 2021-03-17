@@ -2,8 +2,15 @@
 
 {% block content %}
 
-<h2>HOME PAGE</h2>
+<h2>Welcom to the HOME PAGE</h2>
 
-<h1>Welcome {{profile.first_name}}</h1>
+<h1>Welcome {{profile}}</h1>
+
+{% if request.user.habit %}
+<div class="habit">
+    habit here
+
+</div>
+{% endif %}
 
 {% endblock %}

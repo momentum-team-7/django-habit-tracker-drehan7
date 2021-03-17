@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, Habit, HabitLog
 
 class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -10,3 +10,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['user', 'first_name', 'last_name']
+
+
+class HabitForm(forms.ModelForm):
+    class Meta:
+        model = Habit
+        fields = ['title','description', 'goal']
