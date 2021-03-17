@@ -5,7 +5,3 @@ import psycopg2
 class User(AbstractUser):
     pass
 
-class Habit(model.Models):
-
-    habit = models.CharField(max_length=150)
-    
