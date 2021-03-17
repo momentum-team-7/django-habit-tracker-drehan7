@@ -140,8 +140,9 @@ INTERNAL_IPS = [
     # ...
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = '/'
+SIMPLE_BACKEND_REDIRECT_URL = 'create_profile'
 
 
 import django_on_heroku

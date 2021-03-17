@@ -6,3 +6,8 @@
 .title-header {
   font-size: 45px;
 }
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+}
