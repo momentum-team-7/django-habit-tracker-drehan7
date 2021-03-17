@@ -12,6 +12,9 @@ django-debug-toolbar = "*"
 werkzeug = "*"
 django-environ = "*"
 django-registration-redux = "*"
+psycopg2-binary = "*"
+django-on-heroku = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.9"
