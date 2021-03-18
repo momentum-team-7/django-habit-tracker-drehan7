@@ -21,7 +21,7 @@ class HabitLog(models.Model):
     def __str__(self):
         return f"Date: {self.date} | Amount: {self.track_unit}"
 
-class Habit(model.Models):
+class Habit(models.Model):
     title = models.CharField(max_length = 100)
     description = models.CharField(max_length=200)
     log = models.ForeignKey(HabitLog, on_delete=models.CASCADE, blank=True, null=True)
