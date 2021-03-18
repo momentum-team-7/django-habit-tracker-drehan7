@@ -140,7 +140,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/'
 SIMPLE_BACKEND_REDIRECT_URL = 'create_profile'
 
