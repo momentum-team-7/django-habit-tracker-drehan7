@@ -11,3 +11,7 @@
   display: flex;
   justify-content: space-between;
 }
+
+.habit-container {
+  border: 2px solid black;
+}

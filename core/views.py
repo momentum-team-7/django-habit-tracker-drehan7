@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404 
 from django.http import HttpResponseRedirect
-from .models import Profile, User
-from .forms import ProfileForm
+from .models import Profile, User, Habit
+from .forms import ProfileForm, HabitForm
 
 
 # Create your views here.
@@ -20,6 +20,7 @@ def home_page(request):
 
     return render(request, 'home_page.html', {'profile': profile})
 
+@login_required
 def create_profile(request):
     user = get_object_or_404(User, pk=request.user.pk)
     if request.method == 'POST':
@@ -36,3 +37,24 @@ def create_profile(request):
         form = ProfileForm(request.POST, initial={'user':user})
 
     return render(request, 'create_profile.html', {'form':form})
+
+
+@login_required
+def add_habit(request):
+    user_profile = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = HabitForm(request.POST)
+        if form.is_valid():
+            new_habit = Habit.objects.create(
+                title = form.cleaned_data['title'],
+                description = form.cleaned_data['description'],
+                goal = form.cleaned_data['goal']
+            )
+            new_habit.save()
+            user_profile.habit = new_habit
+            user_profile.save()
+        return HttpResponseRedirect('/home/')
+    else:
+        form = HabitForm(request.POST)
+    
+    return render(request, 'add_habit.html', {'form':form, 'profile':user_profile})
