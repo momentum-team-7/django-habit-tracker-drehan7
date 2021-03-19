@@ -23,6 +23,7 @@ class HabitLog(models.Model):
 
 class Habit(models.Model):
     title = models.CharField(max_length = 100)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     description = models.CharField(max_length=200)
     log = models.ForeignKey(HabitLog, on_delete=models.CASCADE, blank=True, null=True)
     goal = models.IntegerField(default=0)

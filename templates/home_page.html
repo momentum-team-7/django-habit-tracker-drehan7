@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<h2>Welcome to the HOME PAGE</h2>
+
+<br>
+<h1>Welcome USER: {{profile}}</h1>
+
+<div class="add-habit-container">
+
+    <div class="add-habit-button button">
+        <a href="{% url 'add_habit' %}">Track Another Habit</a>
+    </div>
+
+</div>
+
+{% if habits%}
+<div class="habit-container">
+    {% for habit in habits %}
+    <div class="habit">
+        {{ habit}}
+    </div>
+    {% endfor %}
+
+</div>
+{% else %}
+<h2>No habit currently, good job!</h2>
+{% endif %}
+
+
+
+
+{% else %}
+<h1>You need to be logged in</h1>
+<br>
+<a href="/accounts/login/">Login</a>
+
+
+{% endif %}
+
+{% endblock %}

@@ -3,6 +3,26 @@
   padding: 0;
 }
 
+.header-container {
+  border: 2px solid blue;
+  padding: 1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title-header {
   font-size: 45px;
+}
+
+.habit-container {
+  border: 2px solid black;
+}
+
+.habit {
+  border: 1px solid red;
+}
+
+.add-habit-container {
+  border: 2px solid purple;
 }
