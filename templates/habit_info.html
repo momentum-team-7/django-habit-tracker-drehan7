@@ -13,18 +13,20 @@
         <br>
         Goal: {{habit.goal}}
     <div class="logs-container">
+        Logs:
         {% if habit_logs %}
+        <ul>
             {% for log in habit_logs %}
-                {{ log }}
-        
+                <li>{{log}}</li>
             {% endfor %}
+        </ul>
 
         {% else %}
         <em>currently no logs, start tracking!</em>
         {% endif %}
         
         <div class="log-input-container">
-  
+            <a href="{% url 'add_log' habitpk=habit.pk %}">Add Log</a>
 
         </div>
     </div>

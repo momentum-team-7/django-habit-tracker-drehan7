@@ -21,13 +21,21 @@
     {% for habit in habits %}
     <div class="habit">
         <div class="habit-title">
-            {{habit.title}}
+            Title: {{habit.title}}
         </div>
         <div class="habit-description">
-            {{habit.description}}
+            Description: {{habit.description}}
         </div>
         <div class="habit-goal">
             Goal: {{habit.goal}}
+        </div>
+
+        
+        <div class="latest-record">
+
+            Latest:
+            {{ habit_logs}}
+
         </div>
 
         <div class="view-more">

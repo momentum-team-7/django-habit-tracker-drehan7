@@ -18,8 +18,15 @@ def home_page(request):
 
     profile = Profile.objects.get(user=request.user)
     habits = Habit.objects.filter(author=profile)
+    habit_logs = HabitLog.objects.filter(
+        habit_id__in=[habit.pk for habit in habits]
+    ).order_by("-date")
 
-    return render(request, "home_page.html", {"profile": profile, "habits": habits})
+    return render(
+        request,
+        "home_page.html",
+        {"profile": profile, "habits": habits, "habit_logs": habit_logs},
+    )
 
 
 @login_required
@@ -66,24 +73,20 @@ def habit_info(request, habitpk):
     habit = Habit.objects.get(pk=habitpk)
     habit_logs = HabitLog.objects.filter(habit=habit)
 
-    # if request.headers.get("x-requested-with") == "XMLHttpRequest":
-    if request.method == "POST":
-        form = HabitForm(request.POST)
-        if form.is_valid():
-            new_log = HabitLog.objects.get_or_create(
-                habit=habit,
-                date=form.cleaned_data["date"],
-                track_unit=form.cleaned_data["track_unit"],
-            )
-            new_log.save()
-            form.save()
-            data = {"added": "true"}
-            return JsonResponse(data)
-    else:
-        form = HabitLogForm(request.POST)
-
     return render(
-        request,
-        "habit_info.html",
-        {"habit": habit, "habit_logs": habit_logs, "form": form},
+        request, "habit_info.html", {"habit": habit, "habit_logs": habit_logs}
     )
+
+
+def add_log(request, habitpk):
+    habit = Habit.objects.get(pk=habitpk)
+    if request.method == "POST":
+        form = HabitLogForm(request.POST, initial={"habit": habit})
+        if form.is_valid():
+
+            form.save()
+            return HttpResponseRedirect(f"/home/habit_info/{habitpk}/")
+    else:
+        form = HabitLogForm(request.POST, initial={"habit_id": habit.pk})
+
+    return render(request, "add_log.html", {"form": form, "habit": habit})

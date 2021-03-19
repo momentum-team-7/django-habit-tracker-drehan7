@@ -29,8 +29,13 @@ class Habit(models.Model):
 
 class HabitLog(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE, blank=True, null=True)
-    date = models.DateField(default=timezone.now(), unique=True)
+    date = models.DateField(default=timezone.now())
     track_unit = models.IntegerField(default=0)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["date", "habit"], name="unique datelog"),
+        ]
 
     def __str__(self):
         return f"Date: {self.date} | Amount: {self.track_unit}"
