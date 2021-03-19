@@ -15,7 +15,7 @@ class Profile(models.Model):
 
 
 class HabitLog(models.Model):
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True, unique=True)
     track_unit = models.IntegerField(default = 0)
 
     def __str__(self):
