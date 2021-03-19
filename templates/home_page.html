@@ -20,7 +20,19 @@
 <div class="habit-container">
     {% for habit in habits %}
     <div class="habit">
-        {{ habit}}
+        <div class="habit-title">
+            {{habit.title}}
+        </div>
+        <div class="habit-description">
+            {{habit.description}}
+        </div>
+        <div class="habit-goal">
+            Goal: {{habit.goal}}
+        </div>
+
+        <div class="view-more">
+            <a href="{% url 'habit_info' habitpk=habit.pk %}">View More</a>
+        </div>
     </div>
     {% endfor %}
 

@@ -21,8 +21,14 @@
 
 .habit {
   border: 1px solid red;
+  margin: 2%;
 }
 
 .add-habit-container {
   border: 2px solid purple;
+}
+
+.log-input {
+  width: 6%;
+  font-size: 20px;
 }

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Habit Info Page</h1>
+
+<div class="main-container">
+
+    <div class="habit-container">
+        {{habit.title}}
+        <br>
+        {{habit.description}}
+        <br>
+        Goal: {{habit.goal}}
+    <div class="logs-container">
+        {% if habit_logs %}
+            {% for log in habit_logs %}
+                {{ log }}
+        
+            {% endfor %}
+
+        {% else %}
+        <em>currently no logs, start tracking!</em>
+        {% endif %}
+        
+        <div class="log-input-container">
+  
+
+        </div>
+    </div>
+
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}
