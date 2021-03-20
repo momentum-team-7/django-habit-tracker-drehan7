@@ -30,14 +30,6 @@
             Goal: {{habit.goal}}
         </div>
 
-        
-        <div class="latest-record">
-
-            Latest:
-            {{ habit_logs}}
-
-        </div>
-
         <div class="view-more">
             <a href="{% url 'habit_info' habitpk=habit.pk %}">View More</a>
         </div>

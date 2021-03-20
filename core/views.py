@@ -18,15 +18,8 @@ def home_page(request):
 
     profile = Profile.objects.get(user=request.user)
     habits = Habit.objects.filter(author=profile)
-    habit_logs = HabitLog.objects.filter(
-        habit_id__in=[habit.pk for habit in habits]
-    ).order_by("-date")
 
-    return render(
-        request,
-        "home_page.html",
-        {"profile": profile, "habits": habits, "habit_logs": habit_logs},
-    )
+    return render(request, "home_page.html", {"profile": profile, "habits": habits})
 
 
 @login_required
