@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+import datetime
 import psycopg2
 
 
@@ -29,7 +30,7 @@ class Habit(models.Model):
 
 class HabitLog(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE, blank=True, null=True)
-    date = models.DateField(default=timezone.now())
+    date = models.DateField(default=datetime.date.today)
     track_unit = models.IntegerField(default=0)
 
     class Meta:

@@ -32,3 +32,11 @@
   width: 6%;
   font-size: 20px;
 }
+
+.log-table {
+  border: 1px solid red;
+  width: fit-content;
+}
+.log-table th {
+  border-bottom: 1px solid black;
+}

@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
+import datetime
+from django.forms import ValidationError
 from .models import Profile, User, Habit, HabitLog
 from .forms import ProfileForm, HabitForm, HabitLogForm
 
@@ -71,15 +73,31 @@ def habit_info(request, habitpk):
     )
 
 
+@login_required
 def add_log(request, habitpk):
     habit = Habit.objects.get(pk=habitpk)
+    failed = False
     if request.method == "POST":
         form = HabitLogForm(request.POST, initial={"habit": habit})
-        if form.is_valid():
-
+        if form.is_valid() and form.cleaned_data["date"] < datetime.date.today():
             form.save()
             return HttpResponseRedirect(f"/home/habit_info/{habitpk}/")
+        else:
+            failed = True
     else:
         form = HabitLogForm(request.POST, initial={"habit_id": habit.pk})
 
-    return render(request, "add_log.html", {"form": form, "habit": habit})
+    return render(
+        request, "add_log.html", {"form": form, "habit": habit, "failed": failed}
+    )
+
+
+def delete_log(request, habitpk, logpk):
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        log = HabitLog.objects.get(pk=logpk)
+        log.delete()
+        data = {"del": "true"}
+
+    else:
+        data = {"del": "false"}
+    return JsonResponse(data)

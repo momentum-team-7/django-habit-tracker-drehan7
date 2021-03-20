@@ -6,7 +6,7 @@
 <h2>Welcome to the HOME PAGE</h2>
 
 <br>
-<h1>Welcome USER: {{profile}}</h1>
+<h1>Welcome USER: {{profile|title}}</h1>
 
 <div class="add-habit-container">
 
@@ -31,7 +31,7 @@
         </div>
 
         <div class="view-more">
-            <a href="{% url 'habit_info' habitpk=habit.pk %}">View More</a>
+            <a href="{% url 'habit_info' habitpk=habit.pk %}">Check Progress</a>
         </div>
     </div>
     {% endfor %}

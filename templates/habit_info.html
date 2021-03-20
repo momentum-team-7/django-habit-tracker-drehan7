@@ -15,12 +15,21 @@
     <div class="logs-container">
         Logs:
         {% if habit_logs %}
-        <ul>
-            {% for log in habit_logs %}
-                <li>{{log}}</li>
-            {% endfor %}
-        </ul>
-
+        <div class="log-table">
+            <table>
+                <tr>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+                {% for log in habit_logs %}
+                <tr id={{habit.pk}}>
+                    <td>{{log.track_unit}}</td> 
+                    <td>{{log.date}}</td>
+                    <td class='edit-del-buttons'><button class="edit-log-button button">Edit</button>|<button id={{log.id}} class="delete-log-button button">Del</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
         {% else %}
         <em>currently no logs, start tracking!</em>
         {% endif %}

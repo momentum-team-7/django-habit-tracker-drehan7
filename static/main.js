@@ -1,16 +1,20 @@
-// let addLogButtons = document.querySelectorAll('add-log-button');
-// for (let addButton of addLogButtons) {
-//     addButton.addEventListener('click', e => {
-//         const addLogUrl = `/home/habit/${e.target.id}/add_log/`
-//         fetch(addLogUrl, {
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'X-Requested-With': 'XMLHttpRequest',
-//             },
-//         })
-//             .then(response => response.json())
-//             .then(data => {
-//                 console.log(data)
-//             })
-//     })
-// }
+const deleteLogButtons = document.querySelectorAll('.delete-log-button')
+for (let delButton of deleteLogButtons) {
+    delButton.addEventListener('click', e => {
+        const logContainer = e.target.parentElement.parentElement;
+        const delUrl = `/home/habit_info/${logContainer.id}/delete_log/${e.target.id}/`
+        fetch(delUrl, {
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data['del'] === 'true') {
+                    logContainer.remove()
+                }
+            })
+
+    })
+}
