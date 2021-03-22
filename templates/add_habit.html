@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if not profile.habit %}
+<form action="{% url 'add_habit' %}" method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <input type="submit" value="Add">
+</form>
+{% else %}
+<h1>You already have a habit to track!</h1>
+<a href="/home/">Home</a>
+{% endif %}
+
+
+{% endblock %}
