@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
 from django.utils import timezone
 import datetime
 import psycopg2
@@ -7,6 +8,7 @@ import psycopg2
 
 class User(AbstractUser):
     pass
+
 
 
 class Profile(models.Model):
@@ -40,3 +42,4 @@ class HabitLog(models.Model):
 
     def __str__(self):
         return f"Date: {self.date} | Amount: {self.track_unit}"
+

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 import datetime
@@ -11,9 +12,11 @@ def index(request):
     return render(request, "index.html", {})
 
 
+
 @login_required
 def home_page(request):
     profiles = Profile.objects.all()
+
     current_user = User.objects.get(pk=request.user.pk)
     if current_user not in [profile.user for profile in profiles]:
         return HttpResponseRedirect("/create_profile")
@@ -27,6 +30,7 @@ def home_page(request):
 @login_required
 def create_profile(request):
     user = get_object_or_404(User, pk=request.user.pk)
+
     if request.method == "POST":
         form = ProfileForm(request.POST, initial={"user": user})
         if form.is_valid():
@@ -41,6 +45,7 @@ def create_profile(request):
         form = ProfileForm(request.POST, initial={"user": user})
 
     return render(request, "create_profile.html", {"form": form})
+
 
 
 @login_required
@@ -106,3 +111,4 @@ def delete_log(request, habitpk, logpk):
 @login_required
 def edit_log(request, habitpk, logpk):
     pass
+

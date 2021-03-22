@@ -18,4 +18,5 @@ urlpatterns = [
         views.edit_log,
         name="edit_log",
     ),
+
 ]

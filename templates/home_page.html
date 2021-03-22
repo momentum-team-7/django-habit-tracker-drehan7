@@ -4,6 +4,7 @@
 
 {% if request.user.is_authenticated %}
 
+
 <br>
 <div class="welcome-user">
     <h3> Welcome, {{profile|title}}!</h3>
@@ -38,10 +39,13 @@
     </div>
     {% endfor %}
 
+
 </div>
 {% else %}
 <h2>No habit currently, good job!</h2>
 {% endif %}
+
+
 
 
 

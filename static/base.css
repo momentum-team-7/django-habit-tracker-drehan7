@@ -29,6 +29,7 @@ body {
   font-size: 45px;
 }
 
+
 .habit-container {
   border-top: 3px solid #d4a373;
   display: flex;
@@ -148,4 +149,5 @@ body {
   background-color: inherit;
   border: none;
   font-size: 20px;
+
 }
