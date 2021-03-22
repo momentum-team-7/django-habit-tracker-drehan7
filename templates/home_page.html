@@ -3,26 +3,52 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-<h2>Welcom to the HOME PAGE</h2>
 
-<h1>Welcome {{profile}}</h1>
+
+<br>
+<div class="welcome-user">
+    <h3> Welcome, {{profile|title}}!</h3>
+</div>
 
 <div class="add-habit-container">
-    <a href="{% url 'add_habit' %}">Start Tracking a Habit</a>
+
+    <div class="add-habit-button button">
+        <a href="{% url 'add_habit' %}">Track Another Habit</a>
+    </div>
 
 </div>
 
-{% if profile.habit %}
+{% if habits%}
 <div class="habit-container">
+    {% for habit in habits %}
     <div class="habit">
+        <div class="habit-title">
+            {{habit.title|title}}
+        </div>
+        <div class="habit-description">
+            <br>
+            {{habit.description}}
+        </div>
+        <div class="habit-goal">
+            Goal: {{habit.goal}}
+        </div>
 
-        <p>{{ profile.habit }}</p>
-
+        <div class="view-more">
+            <a href="{% url 'habit_info' habitpk=habit.pk %}">Check Progress</a>
+        </div>
     </div>
+    {% endfor %}
+
+
 </div>
 {% else %}
 <h2>No habit currently, good job!</h2>
 {% endif %}
+
+
+
+
+
 
 {% else %}
 <h1>You need to be logged in</h1>
