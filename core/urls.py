@@ -13,4 +13,9 @@ urlpatterns = [
         views.delete_log,
         name="delete_log",
     ),
+    path(
+        "home/habit_info/<int:habitpk>/edit_log/<int:logpk>/",
+        views.edit_log,
+        name="edit_log",
+    ),
 ]

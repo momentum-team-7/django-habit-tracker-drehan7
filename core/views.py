@@ -66,7 +66,7 @@ def add_habit(request):
 @login_required
 def habit_info(request, habitpk):
     habit = Habit.objects.get(pk=habitpk)
-    habit_logs = HabitLog.objects.filter(habit=habit)
+    habit_logs = HabitLog.objects.filter(habit=habit).order_by("-date")
 
     return render(
         request, "habit_info.html", {"habit": habit, "habit_logs": habit_logs}
@@ -101,3 +101,8 @@ def delete_log(request, habitpk, logpk):
     else:
         data = {"del": "false"}
     return JsonResponse(data)
+
+
+@login_required
+def edit_log(request, habitpk, logpk):
+    pass

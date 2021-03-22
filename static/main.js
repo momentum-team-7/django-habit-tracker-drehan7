@@ -18,3 +18,39 @@ for (let delButton of deleteLogButtons) {
 
     })
 }
+
+
+// Chart Stuff
+
+const getChartDataY = () => {
+    let values = []
+    let amounts = document.querySelectorAll('.track-unit-cell')
+    amounts.forEach(e => values.push(parseInt(e.innerHTML)))
+    return values.reverse()
+}
+const getChartDataX = () => {
+    let values = []
+    let amounts = document.querySelectorAll('.date-cell')
+    amounts.forEach(e => values.push(e.innerHTML))
+    return values.reverse()
+
+}
+
+
+let ctx = document.querySelector('#myChart').getContext('2d');
+
+let myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: getChartDataX(),
+        datasets: [{
+            label: 'Habit Progress',
+            // backgroundColor: '#fefae0',
+            borderColor: 'green',
+            data: getChartDataY()
+
+        }]
+    },
+
+    options: {}
+});

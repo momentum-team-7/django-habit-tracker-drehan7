@@ -5,31 +5,42 @@
 <h1>Habit Info Page</h1>
 
 <div class="main-container">
-
-    <div class="habit-container">
-        {{habit.title}}
-        <br>
-        {{habit.description}}
-        <br>
-        Goal: {{habit.goal}}
-    <div class="logs-container">
-        Logs:
-        {% if habit_logs %}
-        <div class="log-table">
-            <table>
-                <tr>
-                    <th>Amount</th>
-                    <th>Date</th>
-                </tr>
-                {% for log in habit_logs %}
-                <tr id={{habit.pk}}>
-                    <td>{{log.track_unit}}</td> 
-                    <td>{{log.date}}</td>
-                    <td class='edit-del-buttons'><button class="edit-log-button button">Edit</button>|<button id={{log.id}} class="delete-log-button button">Del</button></td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+    
+    <div class="habit-info-container">
+        <div class="left-side-habitinfo">
+            <div class="habit-info-title">
+                {{habit.title}}
+            </div>
+            <br>
+            <div class="habit-info-description">
+                {{habit.description}}
+            </div>
+            <br>
+            <div class="habit-info-goal">
+                Goal: {{habit.goal}}
+            </div>
+            <div class="logs-container">
+                {% if habit_logs %}
+                <div class="log-table">
+                    <table>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                        {% for log in habit_logs %}
+                        <tr id={{habit.pk}}>
+                            <td class="track-unit-cell">{{log.track_unit}}</td> 
+                            <td class='date-cell'>{{log.date}}</td>
+                            <td class='edit-del-buttons'>
+                                <form action="{% url 'edit_log' habitpk=habit.pk logpk=log.id %}" method='post'>
+                                    <button class="edit-log-button button">Edit</button></form><button id={{log.id}} class="delete-log-button button">Del</button></td>
+                                    
+                                
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
         {% else %}
         <em>currently no logs, start tracking!</em>
         {% endif %}
@@ -39,8 +50,9 @@
 
         </div>
     </div>
-
-
+    <div class="log-chart-container">
+        <canvas id="myChart" width="500" height="500"></canvas>
+    </div>
 
     </div>
 </div>
