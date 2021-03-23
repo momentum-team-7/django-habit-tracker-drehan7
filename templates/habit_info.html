@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1>Habit Info Page</h1>
+<h2 class='progress-comment'></h2>
 
 <div class="main-container">
     
@@ -17,7 +18,7 @@
             </div>
             <br>
             <div class="habit-info-goal">
-                Goal: {{habit.goal}}
+                Goal: <span class='habit-goal'>{{habit.goal}}</span>
             </div>
             <div class="logs-container">
                 {% if habit_logs %}
@@ -32,8 +33,7 @@
                             <td class="track-unit-cell">{{log.track_unit}}</td> 
                             <td class='date-cell'>{{log.date}}</td>
                             <td class='edit-del-buttons'>
-                                <form action="{% url 'edit_log' habitpk=habit.pk logpk=log.id %}" method='post'>
-                                    <button class="edit-log-button button">Edit</button></form><button id={{log.id}} class="delete-log-button button">Del</button></td>
+                                <button id={{log.id}} class="delete-log-button button">Del</button></td>
                                     
                                 
                         </tr>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="log-chart-container">
-        <canvas id="myChart" width="500" height="500"></canvas>
+        <canvas id="myChart" width="50%" height="50%" ></canvas>
     </div>
 
     </div>

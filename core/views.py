@@ -12,7 +12,6 @@ def index(request):
     return render(request, "index.html", {})
 
 
-
 @login_required
 def home_page(request):
     profiles = Profile.objects.all()
@@ -45,7 +44,6 @@ def create_profile(request):
         form = ProfileForm(request.POST, initial={"user": user})
 
     return render(request, "create_profile.html", {"form": form})
-
 
 
 @login_required
@@ -109,6 +107,12 @@ def delete_log(request, habitpk, logpk):
 
 
 @login_required
-def edit_log(request, habitpk, logpk):
-    pass
+def delete_habit(request, habitpk):
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        habit = Habit.objects.get(pk=habitpk)
+        habit.delete()
+        data = {"habit": "deleted"}
+    else:
+        data = {"habit": "not deleted"}
 
+    return JsonResponse(data)

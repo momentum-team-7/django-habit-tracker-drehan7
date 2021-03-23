@@ -35,6 +35,9 @@
 
         <div class="view-more">
             <a href="{% url 'habit_info' habitpk=habit.pk %}">Check Progress</a>
+            <button class="delete-habit-button" id={{habit.pk}}>
+                Delete Habit
+            </button>
         </div>
     </div>
     {% endfor %}

@@ -19,6 +19,28 @@ for (let delButton of deleteLogButtons) {
     })
 }
 
+const deleteHabitButtons = document.querySelectorAll('.delete-habit-button');
+for (let delHabitBtn of deleteHabitButtons) {
+    delHabitBtn.addEventListener('click', e => {
+        const habitContainer = e.target.parentElement.parentElement;
+        const delHabitUrl = `/home/${e.target.id}/delete/`
+        fetch(delHabitUrl, {
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data['habit'] == 'deleted') {
+                    habitContainer.remove()
+                }
+            })
+
+    })
+}
+
 
 // Chart Stuff
 
@@ -45,7 +67,7 @@ let myChart = new Chart(ctx, {
         labels: getChartDataX(),
         datasets: [{
             label: 'Habit Progress',
-            // backgroundColor: '#fefae0',
+            // backgroundColor: 'white',
             borderColor: 'green',
             data: getChartDataY()
 
@@ -54,3 +76,15 @@ let myChart = new Chart(ctx, {
 
     options: {}
 });
+
+const progressComment = document.querySelector('.progress-comment')
+let goal = document.querySelector('.habit-goal').textContent
+const lastThree = getChartDataY().slice(-3).reverse()
+console.log(lastThree)
+console.log(goal)
+if (lastThree.includes(parseInt(goal))) {
+    progressComment.textContent = "You're doing Great!"
+}
+else {
+    progressComment.textContent = "Keep pushing!"
+}
