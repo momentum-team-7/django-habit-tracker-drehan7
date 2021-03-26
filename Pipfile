@@ -15,6 +15,7 @@ django-registration-redux = "*"
 psycopg2-binary = "*"
 django-on-heroku = "*"
 gunicorn = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.9"
