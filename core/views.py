@@ -116,3 +116,18 @@ def delete_habit(request, habitpk):
         data = {"habit": "not deleted"}
 
     return JsonResponse(data)
+
+
+@login_required
+def edit_habit(request, habitpk):
+    habit = Habit.objects.get(pk=habitpk)
+    if request.method == "POST":
+        form = HabitForm(request.POST, instance=habit)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/home/")
+
+    else:
+        form = HabitForm(instance=habit)
+
+    return render(request, "edit_habit.html", {"form": form})

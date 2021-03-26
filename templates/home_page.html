@@ -35,6 +35,7 @@
 
         <div class="view-more">
             <a href="{% url 'habit_info' habitpk=habit.pk %}">Check Progress</a>
+            <a href="{% url 'edit_habit' habitpk=habit.pk %}">Edit Habit</a>
             <button class="delete-habit-button" id={{habit.pk}}>
                 Delete Habit
             </button>
