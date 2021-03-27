@@ -10,7 +10,6 @@ class User(AbstractUser):
     pass
 
 
-
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
@@ -31,7 +30,9 @@ class Habit(models.Model):
 
 
 class HabitLog(models.Model):
-    habit = models.ForeignKey(Habit, on_delete=models.CASCADE, blank=True, null=True)
+    habit = models.ForeignKey(
+        Habit, on_delete=models.CASCADE, blank=True, null=True, related_name="habit_url"
+    )
     date = models.DateField(default=datetime.date.today)
     track_unit = models.IntegerField(default=0)
 
@@ -42,4 +43,3 @@ class HabitLog(models.Model):
 
     def __str__(self):
         return f"Date: {self.date} | Amount: {self.track_unit}"
-

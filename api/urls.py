@@ -4,9 +4,11 @@ from . import views
 
 urlpatterns = [
     path("profiles/", views.ProfileList.as_view(), name="profile-list"),
+    path("profiles/<int:pk>/", views.ProfileDetail.as_view(), name="profile-detail"),
     path("habits/", views.HabitList.as_view(), name="habit-list"),
     path("habits/<int:pk>/", views.HabitDetail.as_view(), name="habit-detail"),
-    path("habits/<int:pk>/logs/", views.HabitLogList.as_view(), name="habit-log-list"),
+    path("logs/", views.HabitLogList.as_view(), name="habit-log-list"),
+    path("logs/<int:pk>/", views.HabitLogDetail.as_view(), name="habit-log-detail"),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

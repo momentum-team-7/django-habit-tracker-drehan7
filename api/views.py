@@ -2,48 +2,30 @@ from core.models import Profile, Habit, HabitLog
 from .serializers import ProfileSerializer, HabitSerializer, HabitLogSerializer
 
 from django.http import Http404
-
-from rest_framework import status, generics
 from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import generics
 
 # Create your views here.
 
 
-class ProfileList(APIView):
-    def get(self, request, format=None):
-        profiles = Profile.objects.all()
-        serializer = ProfileSerializer(profiles, many=True)
-        return Response(serializer.data)
+class ProfileList(generics.ListAPIView):
 
-    def post(self, request, format=None):
-        serializer = ProfileSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def update(self, request, format=None):
-        pass
-
-    def delete(self, request, format=None):
-        pass
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
 
 
-class HabitList(APIView):
-    def get(self, request, format=None):
-        habits = Habit.objects.all()
-        serializer = HabitSerializer(habits, many=True)
-        return Response(serializer.data)
+class ProfileDetail(generics.RetrieveAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
 
-    def post(self, request, format=None):
-        pass
 
-    def update(self, request, format=None):
-        pass
+class HabitList(generics.ListCreateAPIView):
+    queryset = Habit.objects.all()
+    serializer_class = HabitSerializer
 
-    def delete(self, request, format=None):
-        pass
+    def perform_create(self, serializer):
+        profile = Profile.objects.get(user=self.request.user)
+        serializer.save(author=profile)
 
 
 # Change below to APIView with proper methods
@@ -53,4 +35,11 @@ class HabitDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class HabitLogList(generics.ListCreateAPIView):
-    pass
+    queryset = HabitLog.objects.all()
+    serializer_class = HabitLogSerializer
+
+
+
+class HabitLogDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = HabitLog.objects.all()
+    serializer_class = HabitLogSerializer

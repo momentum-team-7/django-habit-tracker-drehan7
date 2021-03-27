@@ -1,19 +1,15 @@
 from rest_framework import serializers
+from rest_framework import permissions
+
 from core.models import User, Profile, Habit, HabitLog
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = [
-            "id",
-            "user",
-            "first_name",
-            "last_name",
-        ]
-
-
 class HabitSerializer(serializers.ModelSerializer):
+    author = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name="profile-detail"
+    )
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     class Meta:
         model = Habit
         fields = [
@@ -25,7 +21,22 @@ class HabitSerializer(serializers.ModelSerializer):
         ]
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    class Meta:
+        model = Profile
+        fields = [
+            "id",
+            "user",
+            "first_name",
+            "last_name",
+        ]
+
+
 class HabitLogSerializer(serializers.ModelSerializer):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     class Meta:
         model = HabitLog
         fields = [
