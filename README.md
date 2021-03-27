@@ -1,4 +1,7 @@
 # Project Deployed at [unhabited](https://unhabited.herokuapp.com/) Api at [API](https://unhabited.herokuapp.com/api/habits.json)
+## Api Documentation (kinda)
+To get all habits, send get request to url above. other urls: /api/profiles | /api/habits/<int:pk>/ | /api/logs/ | /api/logs/<int:pk>/
+All CRUD methods available if logged in.
 
 
 # Django Project Template
